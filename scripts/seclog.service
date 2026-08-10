@@ -1,0 +1,36 @@
+[Unit]
+Description=seclog devlog web server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=seclog
+Group=seclog
+WorkingDirectory=/opt/seclog
+EnvironmentFile=-/etc/seclog/env
+ExecStart=/opt/seclog/seclog -addr localhost:7819 -db /var/opt/seclog/pages.db
+Restart=on-failure
+RestartSec=3s
+TimeoutStopSec=10s
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/opt/seclog
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6
+IPAddressAllow=127.0.0.0/8
+IPAddressAllow=::1
+SystemCallFilter=@system-service
+MemoryDenyWriteExecute=true
+
+[Install]
+WantedBy=multi-user.target
