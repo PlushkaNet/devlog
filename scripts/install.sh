@@ -62,7 +62,6 @@ hash="$(printf '%s' "$secret" | sha256sum | cut -d' ' -f1)"
 install -d -m 700 "$ENV_DIR"
 install -m 600 /dev/null "$ENV_FILE"
 printf 'SECRET_HASH=%s\n' "$hash" > "$ENV_FILE"
-chmod 600 "$ENV_FILE"
 echo "Secret was saved at $ENV_FILE"
 
 install -d -m 755 "$APP_DIR"
